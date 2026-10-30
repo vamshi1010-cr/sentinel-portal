@@ -1,16 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// When building for GitHub Pages, set VITE_BASE to /repo-name/
+// e.g. VITE_BASE=/sentinel-portal/ npm run build
+const base = process.env.VITE_BASE || './'
+
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 5173,
-    proxy: {
-      '/api': 'http://localhost:8000',
-      '/ws': {
-        target: 'ws://localhost:8000',
-        ws: true,
-      },
-    },
-  },
+  base,
+  // No proxy needed — simulation runs entirely in-browser
 })
